@@ -1,17 +1,18 @@
-Rain[] rain = new Rain[1000];
+Rain[] rain = new Rain[5000];
 
 void setup(){
-  size(800, 800);
+  fullScreen();
   for (int i = 0; i < rain.length; i++){
     rain[i] = new Rain();
   }
   
 }
+
 void draw(){
   background(153, 204, 255);
   strokeWeight(3);
   stroke(0);
-  line(0, width, width, width);
+  //line(0, width, width, width);
   for(int i = 0; i < rain.length; i++){
     rain[i].update();
   }
@@ -24,11 +25,11 @@ class Rain {
   float s;
   float z;
   float a;
-  float ang;
+  //float ang;
   
   Rain(){
     x = random(0, width);
-    y = random(-width, width);
+    y = random(-height, height);
     l = random(2, 5); //length
     s = random(.5, 1.75); //stroke weight
     z = map(s, .5, 1.75, 2, 4.5); //gravity
@@ -39,15 +40,15 @@ class Rain {
     stroke(0, 102, 204, a);
     strokeWeight(s);
     line(x, y, x, y-l);
-    if(y > width){
-      for(int i = 0; i < 10; i++){ //responsible for the splash effect
-        ang = random(0.1, PI - .1);
-       line(x, y-3, x + cos(ang)* (l * 2.5), y - sin(ang)*(l * 2.5));
-      }
-      y = random(-width, 0); //resets the rain drop to the top
+    if(y > height){
+      //for(int i = 0; i < 10; i++){ //responsible for the splash effect
+      //  ang = random(0.1, PI - .1);
+      // line(x, y-3, x + cos(ang)* (l * 2.5), y - sin(ang)*(l * 2.5));
+      //}
+      y = random(-height, 0); //resets the rain drop to the top
       x = random(0, width);
     }
-    y = y + z; //adds gravity
+    y = y + z*1.175; //adds gravity
   }
   
 }
